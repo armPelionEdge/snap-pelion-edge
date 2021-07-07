@@ -404,13 +404,13 @@ parts:
     fluent-bit:
       plugin: cmake
       source: https://github.com/fluent/fluent-bit.git
+      source-tag: v1.7.9
       build-packages:
         - flex
         - bison
       configflags:
         - -DFLB_SHARED_LIB=Off
         - -DFLB_EXAMPLES=Off
-        - -DFLB_SYSTEMD=On
         - -DFLB_IN_SYSTEMD=On
         - -DFLB_HTTP_SERVER=On
       override-build: |

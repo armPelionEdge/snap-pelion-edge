@@ -415,10 +415,10 @@ parts:
         - flex
         - bison
       configflags:
+        - -DFLB_JEMALLOC=On
         - -DFLB_SHARED_LIB=Off
         - -DFLB_EXAMPLES=Off
         - -DFLB_IN_SYSTEMD=On
-        - -DFLB_HTTP_SERVER=On
       override-build: |
         snapcraftctl build
         install ${SNAPCRAFT_PROJECT_DIR}/files/fluent-bit/config/fluent-bit.conf ${SNAPCRAFT_PART_INSTALL}/

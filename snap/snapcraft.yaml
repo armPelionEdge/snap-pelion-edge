@@ -404,28 +404,22 @@ parts:
     fluent-bit:
       plugin: cmake
       source: https://github.com/fluent/fluent-bit.git
-      source-tag: v1.3.5
       build-packages:
-        - zlib
-        - bison-native
-        - flex-native
-      override-pull: |
-        snapcraftctl pull
-        git apply ${SNAPCRAFT_PROJECT_DIR}/files/fluent-bit/patches/0001-support-usrmerge.patch
+        - flex
+        - bison
       configflags:
-        - -DFLB_ALL=ON
-        - -DFLB_TD=1
-        - -DFLB_LUAJIT=Off
-        - -DFLB_FILTER_LUA=Off
         - -DFLB_SHARED_LIB=Off
         - -DFLB_EXAMPLES=Off
         - -DFLB_SYSTEMD=On
         - -DFLB_IN_SYSTEMD=On
+        - -DFLB_HTTP_SERVER=On
       override-build: |
         snapcraftctl build
-        install ${SNAPCRAFT_PROJECT_DIR}/files/edge-core/config/td-agent-bit.conf ${SNAPCRAFT_PART_INSTALL}/
-        install ${SNAPCRAFT_PROJECT_DIR}/files/edge-core/scripts/launch-fluent-bit.sh ${SNAPCRAFT_PART_INSTALL}/
-        # install ${GOPATH}/bin/maestro ${SNAPCRAFT_PART_INSTALL}/wigwag/system/bin/maestro
+        install ${SNAPCRAFT_PROJECT_DIR}/files/fluent-bit/config/td-agent-bit.conf ${SNAPCRAFT_PART_INSTALL}/
+        install ${SNAPCRAFT_PROJECT_DIR}/files/fluent-bit/scripts/launch-fluent-bit.sh ${SNAPCRAFT_PART_INSTALL}/
+        install -d ${SNAPCRAFT_PART_INSTALL}/wigwag/system/bin
+      organize:
+        bin/td-agent-bit: wigwag/system/bin/td-agent-bit
     cni:
       plugin: go
       source: https://github.com/containernetworking/plugins.git

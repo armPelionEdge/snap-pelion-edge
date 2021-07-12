@@ -412,6 +412,7 @@ parts:
       source: https://github.com/fluent/fluent-bit.git
       source-tag: v1.7.9
       build-packages:
+        - libsystemd-dev
         - flex
         - bison
       configflags:
